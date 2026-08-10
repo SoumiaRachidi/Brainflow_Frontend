@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { BrainFlowLogo } from "@/components/brand/brainflow-logo";
 
@@ -65,6 +66,18 @@ export default function LoginPage() {
                         typeof meData === "object" &&
                         meData !== null &&
                         "systemRole" in meData &&
+                        (meData as { systemRole?: unknown }).systemRole === "ANIMATOR"
+                    ) {
+                        router.push("/animator-dashboard");
+                        return;
+                    }
+
+                    if (
+                        meResponse.ok &&
+                        meResponse.status === 200 &&
+                        typeof meData === "object" &&
+                        meData !== null &&
+                        "systemRole" in meData &&
                         (meData as { systemRole?: unknown }).systemRole === "USER"
                     ) {
                         router.push("/user-dashboard");
@@ -106,32 +119,18 @@ export default function LoginPage() {
     return (
         <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.08),_transparent_30%),linear-gradient(180deg,#f8fbff_0%,#eef3f9_100%)] px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
             <section className="mx-auto grid min-h-[calc(100vh-3rem)] w-full max-w-6xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm lg:grid-cols-[1fr_1.1fr]">
-                <div className="flex flex-col justify-between gap-8 bg-slate-50 p-8 sm:p-10">
-                    <div className="space-y-6">
-                        <BrainFlowLogo href="/login" />
-                        <div className="space-y-3">
-                            <h1 className="max-w-lg text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
-                                Connectez-vous à votre espace BrainFlow
-                            </h1>
-                            <p className="max-w-xl text-base leading-7 text-slate-600">
-                                Un point d&apos;entrée clair, sécurisé et conçu pour accéder rapidement aux tableaux de bord administrateur ou utilisateur.
-                            </p>
-                        </div>
+                <div className="flex flex-col justify-between bg-slate-50 p-8 sm:p-10">
+                    <BrainFlowLogo href="/" />
+                    <div className="my-auto space-y-4 py-8">
+                        <h1 className="max-w-lg text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+                            Connectez-vous à votre espace BrainFlow.
+                        </h1>
+                        <p className="max-w-xl text-lg leading-8 text-slate-600">
+                            Retrouvez votre équipe, accédez à vos tableaux de bord et reprenez vos sessions de brainstorming là où vous les avez laissées.
+                        </p>
                     </div>
-
-                    <div className="grid gap-4 sm:grid-cols-3">
-                        <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
-                            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Sécurité</p>
-                            <p className="mt-3 text-sm font-medium text-slate-900">Token validé à la connexion</p>
-                        </div>
-                        <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
-                            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Rôles</p>
-                            <p className="mt-3 text-sm font-medium text-slate-900">Redirection automatique selon le profil</p>
-                        </div>
-                        <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
-                            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Design</p>
-                            <p className="mt-3 text-sm font-medium text-slate-900">Interface claire et professionnelle</p>
-                        </div>
+                    <div className="text-xs text-slate-400">
+                        © BrainFlow. Collaboration &amp; brainstorming en temps réel.
                     </div>
                 </div>
 
@@ -188,6 +187,13 @@ export default function LoginPage() {
                             >
                                 {isLoading ? "Connexion en cours..." : "Se connecter"}
                             </button>
+
+                            <div className="pt-2 text-center text-sm text-slate-600">
+                                Vous n&apos;avez pas de compte ?{" "}
+                                <Link href="/register" className="font-semibold text-slate-900 transition hover:text-sky-600 hover:underline">
+                                    Inscrivez-vous
+                                </Link>
+                            </div>
                         </form>
                     </div>
                 </div>

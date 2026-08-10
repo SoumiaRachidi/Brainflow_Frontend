@@ -9,15 +9,15 @@ import type { AuthenticatedUser } from "@/types/user.types";
 const sidebarItems = [
     {
         id: "sessions",
-        label: "Sessions",
-        description: "Parcourez et créez vos brainstormings.",
+        label: "Mes Sessions",
+        description: "Parcourez et rejoignez vos brainstormings.",
         href: "#sessions-manager",
         tone: "sky" as const,
     },
     {
-        id: "quick-create",
-        label: "Création rapide",
-        description: "Ouvrez la modale de création.",
+        id: "collaboration",
+        label: "Collaboration",
+        description: "Participez aux ateliers en temps réel.",
         href: "#sessions-manager",
         tone: "indigo" as const,
     },

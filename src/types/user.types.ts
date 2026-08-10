@@ -4,7 +4,7 @@ export interface UserRegistrationData {
     password: string;
 }
 
-export type DashboardRole = "ADMIN" | "USER";
+export type DashboardRole = "ADMIN" | "USER" | "ANIMATOR";
 
 export interface AuthenticatedUser {
     id?: number;

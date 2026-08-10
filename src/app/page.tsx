@@ -29,21 +29,21 @@ export default function Home() {
           </div>
 
           <div id="features" className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Sécurité</p>
-              <p className="mt-3 text-sm leading-6 text-slate-600">Connexion par token et contrôle de rôle après authentification.</p>
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:border-sky-200 hover:bg-sky-50/50">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-900">Collaboration en Temps Réel</p>
+              <p className="mt-3 text-sm leading-6 text-slate-600">Travaillez en synergie avec votre équipe sur un tableau blanc interactif où chaque action apparaît instantanément.</p>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Structure</p>
-              <p className="mt-3 text-sm leading-6 text-slate-600">Tableaux de bord séparés, lisibles et pensés pour l&apos;usage métier.</p>
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:border-sky-200 hover:bg-sky-50/50">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-900">Engagement Actif</p>
+              <p className="mt-3 text-sm leading-6 text-slate-600">Participez facilement grâce aux post-its numériques, aux commentaires et à un système de vote intuitif.</p>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Design</p>
-              <p className="mt-3 text-sm leading-6 text-slate-600">Interface blanche, aérienne, avec accents bleus sobres.</p>
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:border-sky-200 hover:bg-sky-50/50">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-900">Espace Structuré</p>
+              <p className="mt-3 text-sm leading-6 text-slate-600">Regroupez vos idées, priorisez les tâches et passez rapidement de la phase de réflexion à la prise de décision.</p>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Action</p>
-              <p className="mt-3 text-sm leading-6 text-slate-600">Logo interactif et navigation rapide vers les espaces protégés.</p>
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:border-sky-200 hover:bg-sky-50/50">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-900">Mémoire Collective</p>
+              <p className="mt-3 text-sm leading-6 text-slate-600">Ne perdez aucune idée. Sauvegardez l&apos;historique complet de vos sessions et exportez vos résultats en un clic.</p>
             </div>
           </div>
         </div>
