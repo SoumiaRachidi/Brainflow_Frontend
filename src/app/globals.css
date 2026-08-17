@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fbff;
-  --foreground: #0f172a;
+  --background: #f3f0ea;
+  --foreground: #1a1f2c;
 }
 
 @theme inline {
@@ -10,12 +10,17 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  --color-neu-bg: #f3f0ea;
+  --color-neu-dark: #1b202e;
+  --color-neu-shadow-dark: #dad7d1;
+  --color-neu-shadow-light: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #f8fbff;
-    --foreground: #0f172a;
+    --background: #f3f0ea;
+    --foreground: #1a1f2c;
   }
 }
 
@@ -36,6 +41,84 @@ body {
 }
 
 ::selection {
-  background: rgba(14, 165, 233, 0.18);
-  color: #0f172a;
+  background: rgba(27, 32, 46, 0.1);
+  color: #1a1f2c;
+}
+
+/* Neumorphic shadow utilities */
+@utility shadow-neu-flat {
+  box-shadow: 8px 8px 16px #dad7d1, -8px -8px 16px #ffffff;
+}
+
+@utility shadow-neu-inset {
+  box-shadow: inset 4px 4px 8px #dad7d1, inset -4px -4px 8px #ffffff;
+}
+
+@utility shadow-neu-flat-sm {
+  box-shadow: 4px 4px 8px #dad7d1, -4px -4px 8px #ffffff;
+}
+
+@utility shadow-neu-inset-sm {
+  box-shadow: inset 3px 3px 6px #dad7d1, inset -3px -3px 6px #ffffff;
+}
+
+@utility shadow-neu-btn-dark {
+  box-shadow: 5px 5px 10px #dad7d1, -3px -3px 8px #ffffff;
+}
+
+@utility shadow-neu-btn-dark-pressed {
+  box-shadow: inset 3px 3px 6px #10131c, inset -2px -2px 6px rgba(255, 255, 255, 0.05);
+}
+
+@utility shadow-neu-tab-active {
+  box-shadow: inset 2px 2px 5px #dad7d1, inset -2px -2px 5px #ffffff;
+}
+
+/* Custom interactive classes */
+.neu-input {
+  background-color: #f3f0ea;
+  box-shadow: inset 3px 3px 6px #dad7d1, inset -3px -3px 6px #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.neu-input:focus {
+  box-shadow: inset 2px 2px 4px #dad7d1, inset -2px -2px 4px #ffffff, 0 0 0 2px rgba(27, 32, 46, 0.15);
+  border-color: rgba(27, 32, 46, 0.3);
+}
+
+.neu-btn-dark {
+  background-color: #1b202e;
+  color: #ffffff;
+  box-shadow: 4px 4px 8px #dad7d1, -4px -4px 8px #ffffff;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-btn-dark:hover {
+  background-color: #242b3e;
+  box-shadow: 2px 2px 4px #dad7d1, -2px -2px 4px #ffffff;
+  transform: translateY(1px);
+}
+
+.neu-btn-dark:active {
+  box-shadow: inset 3px 3px 6px #10131c, inset -2px -2px 6px rgba(255, 255, 255, 0.05);
+  transform: translateY(2px);
+}
+
+.neu-btn-light {
+  background-color: #f3f0ea;
+  color: #1b202e;
+  box-shadow: 4px 4px 8px #dad7d1, -4px -4px 8px #ffffff;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-btn-light:hover {
+  box-shadow: 2px 2px 4px #dad7d1, -2px -2px 4px #ffffff;
+  transform: translateY(1px);
+}
+
+.neu-btn-light:active {
+  box-shadow: inset 2px 2px 4px #dad7d1, inset -2px -2px 4px #ffffff;
+  transform: translateY(2px);
 }

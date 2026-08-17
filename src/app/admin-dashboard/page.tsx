@@ -58,10 +58,10 @@ const initialMetrics: DashboardMetric[] = [
 const initialUsers: AdminTableUser[] = [];
 
 const toneClasses: Record<DashboardMetric["tone"], string> = {
-    sky: "border-sky-200 bg-sky-50 text-sky-700 hover:bg-sky-100/50 cursor-pointer",
-    indigo: "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100/50 cursor-pointer",
-    emerald: "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100/50 cursor-pointer",
-    violet: "border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100/50 cursor-pointer",
+    sky: "border-white/50 bg-[#f3f0ea] text-sky-700 hover:shadow-neu-flat cursor-pointer shadow-neu-flat-sm",
+    indigo: "border-white/50 bg-[#f3f0ea] text-indigo-700 hover:shadow-neu-flat cursor-pointer shadow-neu-flat-sm",
+    emerald: "border-white/50 bg-[#f3f0ea] text-emerald-700 hover:shadow-neu-flat cursor-pointer shadow-neu-flat-sm",
+    violet: "border-white/50 bg-[#f3f0ea] text-violet-700 hover:shadow-neu-flat cursor-pointer shadow-neu-flat-sm",
 };
 
 interface MockIssue {
@@ -402,12 +402,12 @@ export default function AdminDashboardPage() {
                 ) : null}
 
                 {/* Section Indicateurs */}
-                <section className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-sm lg:p-8" id="overview">
+                <section className="rounded-[2rem] border border-white/50 bg-[#f3f0ea] p-6 shadow-neu-flat lg:p-8" id="overview">
                     <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
                         <div className="max-w-3xl space-y-3">
-                            <p className="text-xs uppercase tracking-[0.4em] text-sky-700/70">Vue d&apos;ensemble</p>
-                            <h3 className="text-3xl font-semibold text-slate-900">Indicateurs de supervision</h3>
-                            <p className="text-sm leading-6 text-slate-600">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-sky-700/70 select-none">Vue d&apos;ensemble</p>
+                            <h3 className="text-3xl font-bold text-[#1b202e] tracking-tight">Indicateurs de supervision</h3>
+                            <p className="text-sm leading-6 text-slate-500">
                                 Cliquez sur une carte ci-dessous pour ouvrir les détails de supervision ou exécuter des actions d&apos;audit rapide.
                             </p>
                         </div>
@@ -416,14 +416,14 @@ export default function AdminDashboardPage() {
                             <button
                                 type="button"
                                 onClick={() => scrollToSection("users")}
-                                className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700 shadow-xs"
+                                className="inline-flex items-center justify-center rounded-2xl border border-[#dad7d1] bg-[#f3f0ea] px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-[#dad7d1]/80 hover:shadow-neu-flat hover:text-sky-700 shadow-neu-flat-sm cursor-pointer"
                             >
                                 Voir les utilisateurs
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setIsAuditModalOpen(true)}
-                                className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 shadow-xs"
+                                className="inline-flex items-center justify-center rounded-2xl bg-[#1b202e] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#252c3f] shadow-neu-flat-sm cursor-pointer"
                             >
                                 Ouvrir les journaux d'audit
                             </button>
@@ -432,28 +432,28 @@ export default function AdminDashboardPage() {
 
                     <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                         {state.loading ? initialMetrics.map((card: DashboardMetric) => (
-                            <article key={card.label} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-                                <div className="h-4 w-28 rounded-full bg-slate-100" />
+                            <article key={card.label} className="rounded-3xl border border-[#dad7d1] bg-[#f3f0ea] p-5 shadow-neu-inset-sm">
+                                <div className="h-4 w-28 rounded-full bg-[#dad7d1]/40" />
                                 <div className="mt-6 flex items-end justify-between gap-4">
-                                    <div className="h-9 w-16 rounded-full bg-slate-100" />
-                                    <div className="h-8 w-24 rounded-full bg-slate-100" />
+                                    <div className="h-9 w-16 rounded-full bg-[#dad7d1]/40" />
+                                    <div className="h-8 w-24 rounded-full bg-[#dad7d1]/40" />
                                 </div>
                             </article>
                         )) : state.metrics.map((card: DashboardMetric) => (
                             <article 
                                 key={card.label} 
                                 onClick={() => handleMetricClick(card.label)}
-                                className={`rounded-3xl border p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${toneClasses[card.tone]}`}
+                                className={`rounded-3xl border p-5 transition hover:-translate-y-0.5 ${toneClasses[card.tone]}`}
                             >
                                 <div className="flex items-start justify-between gap-3">
-                                    <p className="text-sm font-semibold text-slate-600">{card.label}</p>
-                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                                    <p className="text-sm font-bold text-slate-500">{card.label}</p>
+                                    <span className="text-[9px] font-bold uppercase tracking-wider text-slate-450">
                                         Cliquez ↗
                                     </span>
                                 </div>
                                 <div className="mt-6 flex items-end justify-between gap-4">
-                                    <span className="text-4xl font-semibold tracking-tight text-slate-900">{card.value}</span>
-                                    <span className="text-xs font-semibold px-2 py-1 bg-white/60 rounded-lg text-slate-600 border border-slate-100">
+                                    <span className="text-4xl font-bold tracking-tight text-slate-900 select-none">{card.value}</span>
+                                    <span className="text-xs font-semibold px-2 py-1 bg-[#f3f0ea] rounded-lg text-slate-650 border border-[#dad7d1] shadow-neu-flat-sm select-none">
                                         {card.trend}
                                     </span>
                                 </div>
@@ -572,18 +572,18 @@ export default function AdminDashboardPage() {
 
                 {/* Section Table Utilisateurs */}
                 <section id="users" className="grid gap-6 xl:grid-cols-[1.5fr_0.5fr]">
-                    <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm overflow-hidden">
+                    <article className="rounded-[2rem] border border-white/50 bg-[#f3f0ea] p-6 shadow-neu-flat overflow-hidden">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                             <div>
-                                <p className="text-xs uppercase tracking-[0.4em] text-indigo-700/70">Gestion des utilisateurs</p>
-                                <h3 className="mt-2 text-2xl font-semibold text-slate-900">Accès et présence</h3>
+                                <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-700/70 select-none">Gestion des utilisateurs</p>
+                                <h3 className="mt-2 text-2xl font-bold text-[#1b202e] tracking-tight">Accès et présence</h3>
                             </div>
-                            <p className="text-sm text-slate-500">Mettez à jour le rôle ou suspendez un compte utilisateur.</p>
+                            <p className="text-sm text-slate-500 font-medium">Mettez à jour le rôle ou suspendez un compte utilisateur.</p>
                         </div>
 
-                        <div className="mt-6 overflow-x-auto rounded-3xl border border-slate-200">
-                            <table className="min-w-full divide-y divide-slate-200 text-left">
-                                <thead className="bg-slate-50 text-xs uppercase tracking-[0.3em] text-slate-500">
+                        <div className="mt-6 overflow-x-auto rounded-3xl border border-[#dad7d1] bg-[#f3f0ea] shadow-neu-inset-sm">
+                            <table className="min-w-full divide-y divide-[#dad7d1]/50 text-left">
+                                <thead className="bg-[#f3f0ea] text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 border-b border-[#dad7d1]/50">
                                     <tr>
                                         <th className="px-5 py-4">Utilisateur</th>
                                         <th className="px-5 py-4">Rôle</th>
@@ -591,30 +591,30 @@ export default function AdminDashboardPage() {
                                         <th className="px-5 py-4">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-slate-200 bg-white text-sm text-slate-700">
+                                <tbody className="divide-y divide-[#dad7d1]/50 bg-[#f3f0ea] text-sm text-slate-700">
                                     {state.loading ? (
                                         <tr>
                                             <td className="px-5 py-6 text-slate-500" colSpan={4}>Chargement des utilisateurs...</td>
                                         </tr>
                                     ) : state.users.length > 0 ? (
                                         state.users.map((user: AdminTableUser) => (
-                                            <tr key={user.email} className="transition hover:bg-slate-50/50">
+                                            <tr key={user.email} className="transition hover:bg-[#dad7d1]/20">
                                                 <td className="px-5 py-4">
-                                                    <div className="font-semibold text-slate-800">{user.name}</div>
-                                                    <div className="text-xs text-slate-500">{user.email}</div>
+                                                    <div className="font-bold text-[#1b202e]">{user.name}</div>
+                                                    <div className="text-xs text-slate-500 font-medium">{user.email}</div>
                                                 </td>
                                                 <td className="px-5 py-4">
                                                     <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                                                        user.role === "ADMIN" ? "bg-rose-50 text-rose-700 border border-rose-100" :
-                                                        user.role === "ANIMATOR" ? "bg-sky-50 text-sky-700 border border-sky-100" :
-                                                        "bg-indigo-50 text-indigo-700 border border-indigo-100"
+                                                        user.role === "ADMIN" ? "bg-rose-50 text-rose-700 border border-rose-100 shadow-sm" :
+                                                        user.role === "ANIMATOR" ? "bg-sky-50 text-sky-700 border border-sky-100 shadow-sm" :
+                                                        "bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-sm"
                                                     }`}>
                                                         {user.role}
                                                     </span>
                                                 </td>
-                                                <td className="px-5 py-4 text-xs text-slate-600 font-medium">
+                                                <td className="px-5 py-4 text-xs text-slate-600 font-bold">
                                                     <span className="inline-flex items-center gap-1.5">
-                                                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                                         Active
                                                     </span>
                                                 </td>
@@ -623,7 +623,7 @@ export default function AdminDashboardPage() {
                                                         <button 
                                                             type="button" 
                                                             onClick={() => toggleUserRole(user.email)}
-                                                            className="text-xs font-semibold text-indigo-600 hover:text-indigo-800"
+                                                            className="text-xs font-bold text-indigo-600 hover:text-indigo-855 transition cursor-pointer"
                                                             title="Toggle User Role"
                                                         >
                                                             Rôle
@@ -632,7 +632,7 @@ export default function AdminDashboardPage() {
                                                             <button 
                                                                 type="button" 
                                                                 onClick={() => deleteUser(user.email)}
-                                                                className="text-xs font-semibold text-rose-500 hover:text-rose-700"
+                                                                className="text-xs font-bold text-rose-500 hover:text-rose-755 transition cursor-pointer"
                                                                 title="Suspend User Access"
                                                             >
                                                                 Suspendre
@@ -654,10 +654,10 @@ export default function AdminDashboardPage() {
 
                     {/* Raccourcis Gouvernance */}
                     <aside className="space-y-6" id="governance">
-                        <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
-                            <p className="text-xs uppercase tracking-[0.4em] text-sky-700/70">Gouvernance</p>
-                            <h3 className="mt-3 text-xl font-semibold text-slate-900">Contrôles et alertes</h3>
-                            <p className="mt-3 text-sm leading-6 text-slate-600">
+                        <article className="rounded-[2rem] border border-white/50 bg-[#f3f0ea] p-6 shadow-neu-flat">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-sky-700/70 select-none">Gouvernance</p>
+                            <h3 className="mt-3 text-xl font-bold text-[#1b202e]">Contrôles et alertes</h3>
+                            <p className="mt-3 text-sm leading-6 text-slate-500">
                                 Téléchargez les rapports globaux ou visualisez les événements de sécurité en temps réel.
                             </p>
 
@@ -665,24 +665,24 @@ export default function AdminDashboardPage() {
                                 <button 
                                     type="button" 
                                     onClick={() => setIsAuditModalOpen(true)} 
-                                    className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700 shadow-xs"
+                                    className="rounded-2xl border border-[#dad7d1] bg-[#f3f0ea] px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-[#dad7d1]/80 hover:shadow-neu-flat hover:text-sky-700 shadow-neu-flat-sm cursor-pointer"
                                 >
                                     Revoir les accès sensibles (Audit)
                                 </button>
                                 <button 
                                     type="button" 
                                     onClick={handleExportCSV}
-                                    className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700 shadow-xs"
+                                    className="rounded-2xl border border-[#dad7d1] bg-[#f3f0ea] px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-[#dad7d1]/80 hover:shadow-neu-flat hover:text-sky-700 shadow-neu-flat-sm cursor-pointer"
                                 >
                                     Exporter le rapport d&apos;activité (CSV)
                                 </button>
                             </div>
                         </article>
 
-                        <article id="configuration" className="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-white to-sky-50 p-6 shadow-sm">
-                            <p className="text-xs uppercase tracking-[0.4em] text-indigo-700/70">Configuration</p>
-                            <h3 className="mt-3 text-xl font-semibold text-slate-900">Supervision plateforme</h3>
-                            <p className="mt-3 text-sm leading-6 text-slate-600">
+                        <article id="configuration" className="rounded-[2rem] border border-white/50 bg-[#f3f0ea] p-6 shadow-neu-flat">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-700/70 select-none">Configuration</p>
+                            <h3 className="mt-3 text-xl font-bold text-[#1b202e]">Supervision plateforme</h3>
+                            <p className="mt-3 text-sm leading-6 text-slate-500">
                                 La base de données PostgreSQL 16 est connectée à l&apos;instance Spring Boot v4.1.0 exécutant le filtrage JWT.
                             </p>
                         </article>

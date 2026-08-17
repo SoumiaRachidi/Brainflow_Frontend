@@ -53,6 +53,9 @@ export interface BrainstormingSessionApiResponse {
     durationMinutes?: number;
     participantsCount?: number;
     status?: string;
+    creatorEmail?: string;
+    createdByUserId?: number;
+    inviteToken?: string;
     [key: string]: unknown;
 }
 

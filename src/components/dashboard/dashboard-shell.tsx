@@ -63,6 +63,9 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
                 }
 
                 const me: AuthenticatedUser = await response.json();
+                if (me.systemRole) {
+                    localStorage.setItem("role", me.systemRole);
+                }
 
                 if (me.systemRole !== requiredRole) {
                     if (me.systemRole === "ADMIN") {
@@ -79,6 +82,7 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
                 onUserLoaded?.(me);
             } catch {
                 localStorage.removeItem("token");
+                localStorage.removeItem("role");
                 router.replace("/login");
             } finally {
                 setLoading(false);
@@ -90,6 +94,7 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
 
     const handleLogout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("role");
         router.replace("/login");
     };
 
@@ -109,36 +114,36 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
 
     if (loading || !user) {
         return (
-            <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.08),_transparent_30%),linear-gradient(180deg,#f8fbff_0%,#eef3f9_100%)] px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
+            <main className="min-h-screen bg-[#f3f0ea] px-4 py-6 text-[#1a1f2c] sm:px-6 lg:px-8">
                 <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-[1600px] gap-6">
-                    <aside className="hidden w-80 overflow-hidden flex-col gap-6 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm lg:flex">
+                    <aside className="hidden w-80 overflow-hidden flex-col gap-6 rounded-[2rem] border border-white/50 bg-[#f3f0ea] p-6 shadow-neu-flat lg:flex">
                         <div className="space-y-4">
                             <BrainFlowLogo href={dashboardHref} />
-                            <div className="h-4 w-44 rounded-full bg-slate-100" />
+                            <div className="h-4 w-44 rounded-full bg-slate-200/60" />
                         </div>
                         <div className="space-y-3">
                             {sidebarItems.map((item, index) => (
-                                <div key={item.id || index} className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                                <div key={item.id || index} className="rounded-3xl border border-[#dad7d1] bg-[#f3f0ea] p-4 shadow-neu-inset-sm">
                                     <div className={`mb-3 h-3 w-12 rounded-full border ${toneClasses[item.tone]}`} />
-                                    <div className="h-4 w-32 rounded-full bg-slate-100" />
-                                    <div className="mt-3 h-3 w-full rounded-full bg-slate-100" />
+                                    <div className="h-4 w-32 rounded-full bg-slate-200/50" />
+                                    <div className="mt-3 h-3 w-full rounded-full bg-slate-200/50" />
                                 </div>
                             ))}
                         </div>
                     </aside>
 
                     <div className="flex flex-1 flex-col gap-6">
-                        <header className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
+                        <header className="rounded-[2rem] border border-white/50 bg-[#f3f0ea] px-6 py-4 shadow-neu-flat">
                             <div className="flex items-center justify-between gap-4">
-                                <div className="space-y-2">
-                                    <div className="h-4 w-28 rounded-full bg-slate-100" />
-                                    <div className="h-3 w-64 rounded-full bg-slate-100" />
+                                <div className="h-8 w-32 rounded-xl bg-slate-200/60" />
+                                <div className="flex items-center gap-4">
+                                    <div className="h-11 w-11 rounded-2xl bg-slate-200/60" />
+                                    <div className="h-11 w-32 rounded-2xl bg-slate-200/60" />
                                 </div>
-                                <div className="h-11 w-36 rounded-2xl bg-slate-100" />
                             </div>
                         </header>
 
-                        <section className="flex flex-1 items-center justify-center rounded-[2rem] border border-slate-200 bg-white p-10 text-sm text-slate-500 shadow-sm">
+                        <section className="flex flex-1 items-center justify-center rounded-[2rem] border border-white/50 bg-[#f3f0ea] p-10 text-sm text-slate-500 shadow-neu-flat">
                             Chargement sécurisé de l&apos;espace {title.toLowerCase()}...
                         </section>
                     </div>
@@ -148,10 +153,10 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
     }
 
     return (
-        <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.08),_transparent_30%),linear-gradient(180deg,#f8fbff_0%,#eef3f9_100%)] px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
+        <main className="min-h-screen bg-[#f3f0ea] px-4 py-6 text-[#1a1f2c] sm:px-6 lg:px-8">
             <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-[1600px] gap-6">
                 <aside
-                    className={`hidden overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 lg:flex lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] ${
+                    className={`hidden overflow-hidden rounded-[2rem] border border-white/50 bg-[#f3f0ea] shadow-neu-flat transition-all duration-300 lg:flex lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] ${
                         compactSidebar
                             ? "flex-col items-center justify-center gap-6 p-4 lg:w-24"
                             : "flex-col gap-6 p-6 lg:w-80"
@@ -162,7 +167,7 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
                         <button
                             type="button"
                             onClick={() => setCompactSidebar((current) => !current)}
-                            className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-600 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700"
+                            className="rounded-2xl border border-[#dad7d1] bg-[#f3f0ea] px-3 py-2 text-xs font-semibold text-slate-600 shadow-neu-flat-sm transition hover:border-[#dad7d1]/80 hover:shadow-neu-flat hover:text-sky-700 cursor-pointer"
                             aria-label={compactSidebar ? "Agrandir la barre latérale" : "Compacter la barre latérale"}
                             title={compactSidebar ? "Agrandir la barre latérale" : "Compacter la barre latérale"}
                         >
@@ -172,7 +177,7 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
 
                     {compactSidebar ? (
                         <div
-                            className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-700 shadow-sm transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700"
+                            className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-[#dad7d1] bg-[#f3f0ea] text-slate-700 shadow-neu-flat-sm transition hover:border-[#dad7d1]/80 hover:bg-[#f3f0ea]/80 hover:text-sky-700"
                             title={`Rôle : ${requiredRole === "ADMIN" ? "Admin" : requiredRole === "ANIMATOR" ? "Animateur" : "Utilisateur"}`}
                         >
                             <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-blue-500" />
@@ -192,10 +197,10 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
                             )}
                         </div>
                     ) : (
-                        <div className="w-full rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                            <p className="text-xs font-bold uppercase tracking-wider text-gray-400">RÔLE ACTIF</p>
-                            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-sm font-medium text-sky-700">
-                                <span className="h-2.5 w-2.5 rounded-full bg-sky-500" />
+                        <div className="w-full rounded-3xl border border-[#dad7d1] bg-[#f3f0ea] p-4 shadow-neu-inset-sm">
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">RÔLE ACTIF</p>
+                            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-sm font-semibold text-sky-700 shadow-sm">
+                                <span className="h-2.5 w-2.5 rounded-full bg-sky-500 animate-pulse" />
                                 {requiredRole}
                             </div>
                         </div>
@@ -209,8 +214,8 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
                                 title={compactSidebar ? item.label : undefined}
                                 className={
                                     compactSidebar
-                                        ? "group flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:border-sky-200 hover:shadow-md hover:shadow-sky-100/60"
-                                        : "group flex items-start gap-4 rounded-3xl border border-slate-200 bg-white px-4 py-4 transition hover:-translate-y-0.5 hover:border-sky-200 hover:shadow-md hover:shadow-sky-100/60"
+                                        ? "group flex h-11 w-11 items-center justify-center rounded-2xl border border-[#dad7d1] bg-[#f3f0ea] shadow-neu-flat-sm transition hover:-translate-y-0.5 hover:border-[#dad7d1]/85 hover:shadow-neu-flat"
+                                        : "group flex items-start gap-4 rounded-3xl border border-[#dad7d1] bg-[#f3f0ea] px-4 py-4 shadow-neu-flat-sm transition hover:-translate-y-0.5 hover:border-[#dad7d1]/85 hover:shadow-neu-flat"
                                 }
                             >
                                 <span
@@ -218,7 +223,7 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
                                 />
                                 {!compactSidebar ? (
                                     <span className="space-y-1">
-                                        <span className="block text-sm font-semibold text-slate-900 transition group-hover:text-sky-700">
+                                        <span className="block text-sm font-semibold text-slate-900 transition group-hover:text-[#1b202e]">
                                             {item.label}
                                         </span>
                                         <span className="block text-xs leading-5 text-slate-500">{item.description}</span>
@@ -230,35 +235,20 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
                 </aside>
 
                 <div className="flex flex-1 flex-col gap-6">
-                    <header className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
-                        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-                            <div>
-                                <p className="text-xs uppercase tracking-[0.35em] text-sky-700/70">BrainFlow workspace</p>
-                                <h2 className="mt-2 text-2xl font-semibold text-slate-900 sm:text-3xl">{title}</h2>
-                                <p className="mt-1 max-w-2xl text-sm text-slate-600">{subtitle}</p>
-                            </div>
+                    <header className="rounded-[2rem] border border-white/50 bg-[#f3f0ea] px-6 py-4 shadow-neu-flat">
+                        <div className="flex items-center justify-between gap-4">
+                            <BrainFlowLogo href={dashboardHref} />
 
-                            <div className="flex flex-wrap items-center gap-3">
-                                <button
-                                    className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700"
-                                    type="button"
-                                    onClick={() => setCompactSidebar((current) => !current)}
+                            <div className="flex items-center gap-4">
+                                <div 
+                                    className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1b202e] to-[#2d364f] text-sm font-semibold text-white shadow-neu-flat-sm select-none" 
+                                    title={user.email ?? "Utilisateur"}
                                 >
-                                    {compactSidebar ? "Étendre la barre" : "Compacter la barre"}
-                                </button>
-
-                                <div className="flex items-center gap-3 rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-sm">
-                                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-600 to-indigo-500 text-sm font-semibold text-white">
-                                        {userInitial}
-                                    </div>
-                                    <div className="min-w-0">
-                                        <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Connecté</p>
-                                        <p className="truncate text-sm font-medium text-slate-900">{user.email ?? "Utilisateur connecté"}</p>
-                                    </div>
+                                    {userInitial}
                                 </div>
 
                                 <button
-                                    className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
+                                    className="inline-flex items-center justify-center rounded-2xl bg-[#1b202e] px-4 py-3 text-sm font-semibold text-white shadow-neu-flat-sm transition hover:bg-[#252c3f] hover:shadow-neu-flat active:scale-[0.98] cursor-pointer"
                                     type="button"
                                     onClick={handleLogout}
                                 >
@@ -268,7 +258,7 @@ export function DashboardShell({ requiredRole, title, subtitle, sidebarItems, ch
                         </div>
                     </header>
 
-                    <section className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm sm:p-6 lg:p-8">
+                    <section className="rounded-[2rem] border border-white/50 bg-[#f3f0ea] p-4 shadow-neu-flat sm:p-6 lg:p-8">
                         {children}
                     </section>
                 </div>
